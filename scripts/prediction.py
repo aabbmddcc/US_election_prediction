@@ -15,8 +15,8 @@ model_path = os.path.join(parent_dir, 'models', 'linear_model.pkl')
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
-data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.xlsx')
-data = pd.read_excel(data_path)
+data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.parquet')
+data = pd.read_parquet(data_path)
 
 # Set up predictors
 X = data[['numeric_grade', 'sample_size', 'pollscore']]

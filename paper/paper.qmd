@@ -2,7 +2,7 @@
 title: "Predicting the 2024 U.S. Presidential Election"
 subtitle: "A Poll-of-Polls Forecasting Approach"
 author: "Mingrui Li"
-date: "October 21, 2024"
+date: today
 format:
   pdf:
     toc: true
@@ -19,7 +19,8 @@ execute:
 \newpage
 # Introduction
 
-In this report, we undertake a poll-of-polls approach to the 2024 U.S. Presidential Election and predict the outcome of the election. We have obtained key predictors from multiple polls and used these in providing a prediction of the share of votes likely to be gained by Donald Trump in comparison with Harris. A linear model developed in Python estimates that the popular vote share of Trump will be **49.7%**. The rest of this report is organized as follows. Section 2 discusses the data we used in this analysis, with the main view of the predictor variables. Section 3 illustrates model set-up and results. Section 4 discusses our results and concludes.
+We undertake a poll-of-polls approach to the 2024 U.S. Presidential Election and predict the outcome of the election. We have obtained key predictors from multiple polls and used these in providing a prediction of the share of votes likely to be gained by Donald Trump in comparison with Harris. A linear model developed in Python estimates that the popular vote share of Trump will be **49.7%**. The rest of this report is organized as follows. Section 2 discusses the data we used in this analysis, with the main view of the predictor variables. Section 3 illustrates model set-up and results. Section 4 discusses our results and concludes.
+
 # Data
 
 ## Overview
@@ -68,8 +69,8 @@ with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
 
-data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.xlsx')
-data = pd.read_excel(data_path)
+data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.parquet')
+data = pd.read_parquet(data_path)
 
 
 X = data[['numeric_grade', 'sample_size', 'pollscore']]
@@ -92,7 +93,7 @@ print(model.summary())
 
 [@python]\
 
-## Prediction
+## Prediction Result
 We use the poll-of-polls method to predict the percentage of the vote that Trump will receive. Specifically, we average the predictor variable, taking them as the predicted predictor variable. [@blumenthal2014], [@pasek2015]
 
 ```{python}
@@ -123,7 +124,7 @@ That is, in percentage, **49.7%**.
 
 # Discussion
 
-Our model predicts that Donald Trump will get **49.7%** of the scaled popular vote in the next election. This prediction was based on several polls' average values, but it should be considered describing the limitations of the model.
+This prediction was based on several polls' average values, but it should be considered describing the limitations of the model.
 
 **Strength**:
 
@@ -137,9 +138,11 @@ Our model predicts that Donald Trump will get **49.7%** of the scaled popular vo
 
 Future work may include the incorporation of state-level polls to project electoral college results. The adjustment for voter turnout, polling biases, and refinement of our model to account for swing states may further improve our forecasts.
 
-# Appendix A - Pollster Deep-Dive
+# Appendix
 
-## Population, Frame and Sample
+##  A - Pollster Deep-Dive
+
+### Population, Frame and Sample
 
 The samples studied in the survey are two populations- adults in the United States, and registered voters. The total number of the sample is 1,200 adults, out of whom 1,000 are registered voters. This design captures a representative view of both the broader general population of adults and a subset of likely voters.
 
@@ -147,7 +150,7 @@ The frame of the survey appears to include a mix of demographics about age, gend
 
 The full sample includes 1,200 respondents, with 1,000 registered voters. The margin of error is plus or minus 2.83% for adults and plus or minus 3.1% for registered voters. These margins of error reflect that the sample is representative but has ample room for error, particularly among subgroups that fall in small sizes. For the subset of registered voters, this provides a relatively decent estimate of voter sentiment.
 
-## Sample Recruitment
+### Sample Recruitment
 
 While the survey doesn't indicate how the sample was recruited, from the method used in choosing respondents, it would appear that both online and phone-based monitoring were employed. There is a screening instrument that eliminates workers in news media organizations or political campaign organizations, or businesses of this nature to eliminate biases. The respondents are assured of confidentiality, with no follow-ups for sales or donations, again indicating that recruitment was designed to minimize selection bias.
 
@@ -155,13 +158,13 @@ Strengths-these tend to be the applications of a screener question that ensures 
 
 The weaknesses of this survey are, with no further explanation on how the respondents were contacted-for example, random sampling, email invitations, etc.-it's hard to assess how representative the recruitment method is.
 
-## Sampling Approach
+### Sampling Approach
 
 The fact that in this response there is nearly a balance in the demographics, including gender, age, ethnicity, and political identification, suggests that the most likely method is stratified random sampling. This would be stratification to ensure that the proper percentage of minority groups is included and representative of the national population.
 The other trade-off with using stratified sampling is that responses from different demographic groups might have to be weighted or otherwise adjusted so the same proportion applies in the final analysis. For example, younger adults-18-24 years-old-only comprise 9-10% of the sample and by voter turnout are underrepresented.
 However, there is no indication of how nonresponse bias has been addressed. It contains a variety of demographic questions such as age, gender,  handled, though it is possible that those who refused to answer certain questions-for example about political preference and voting likelihood-were excluded from the analysis. The response option for the respondents to answer "unsure" is included in the survey; that could reduce nonresponse bias since the participants can give their opinion even if they are not sure.
 
-## Strengths and Limitation of Questionnaire
+### Strengths and Limitation of Questionnaire
 
 The questionnaire includes a wide range of demographic questions including race, income, and education. This breaks down the responses thoroughly across different population groups and ensures results culled are segmented by important demographic categories. This leads to more in-depth analysis.
 It also covers, in a direct sense, the main political and social themes of interest to voters, including the economy, healthcare, immigration, and the environment. The survey also asks respondents about their likelihood of voting and their candidate preference directly, which is critical to election forecasting.
@@ -173,13 +176,13 @@ When not obviously dealt with, there is a risk that groups may be under-represen
 
 [@bullfinch2024]
 
-# Appendix B: Idealized Survey Methodology – $100K Budget
+## B: Idealized Survey Methodology – $100K Budget
 
-## Introduction
+### Introduction
 
 In this appendix, we will propose an idealized survey methodology to forecast the U.S. presidential election, whenever the budget is up to $100K. The proposed survey design emphasizes obtaining a high degree of accuracy and representativeness by carefully choosing samples, recruiting targeted subjects, verifying data, and aggregating it.
 
-## Sampling Approach
+### Sampling Approach
 To this end, and in consideration of the altogether high budget of $100K, we would adopt a **stratified random sampling** approach. In stratified random sampling, subgroups or strata are fairly represented in the sample with regard to population representation, which is quite an important factor when it comes to predicting election outcomes.
 
 - **Strata**: We would stratify the population based on key demographic factors such as:
@@ -195,7 +198,7 @@ This ensures that each group is represented in the sample in proportion to its s
 
 - **Sample size**: With this budget, we will try to achieve a sample size of about **10 000 respondents** across the country. Unless that sample size can give good enough statistical power to be able to detect the preference of the electorates and even enable subgroup analyses, such as by state or demographic group.
 
-## Recruitment Strategy
+### Recruitment Strategy
 
 In recruiting the respondents, we would use the following:
 
@@ -205,7 +208,7 @@ In recruiting the respondents, we would use the following:
 
 We would allocate approximately 20%, about $20K, for online recruitment, while for RDD recruitment we would use about 30%, $30K of the budget. The rest would be incentives, data processing, and validation.
 
-## Data Validation
+### Data Validation
 
 Data quality is of the highest importance to have a reliable forecast. We are going to apply the following techniques for data validation:
 
@@ -213,7 +216,7 @@ Data quality is of the highest importance to have a reliable forecast. We are go
 - **Attention checks**: Fill in the attention check questions that are often added into the survey, like "Select 'Agree' to prove you are paying attention".
 - **Post-stratification weighting**: After the collection of data, we would use post-tabulation weighting, which would balance the sample to match the demographic distribution of the U.S. population. This would involve a balancing process that corrects any disproportions occurring in the sample, overrepresentations of age brackets, for example.
 
-## Poll Aggregation Methodology
+### Poll Aggregation Methodology
 
 Accordingly, for an improved projection on our part, we would aggregate the results using a sort of **poll-of-polls** method. Each poll's results would be weighted based on:
 
@@ -223,7 +226,7 @@ Accordingly, for an improved projection on our part, we would aggregate the resu
 
 This allows us to form an overall sense of the various polls, blending the strengths and weakening the weaknesses by minimizing the potential biases associated with relying on any single poll.
 
-## Survey Implementation
+### Survey Implementation
 
 To collect the data from the survey effectively and store them securely, we would utilize **Google Forms**. The subjects the questionnaire would cover are:
 Demographics-age, gender, education, race, etc.

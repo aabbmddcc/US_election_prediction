@@ -3,13 +3,14 @@ import statsmodels.api as sm
 import pickle
 import os
 
+#Reading files
 try:
     current_dir = os.path.dirname(os.path.abspath(__file__))
 except NameError:
     current_dir = os.getcwd()
 parent_dir = os.path.join(current_dir, '..')
-data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.xlsx')
-data = pd.read_excel(data_path)
+data_path = os.path.join(parent_dir, 'data', 'analysis_data', 'analysis_data.parquet')
+data = pd.read_parquet(data_path)
 
 X = data[['numeric_grade', 'sample_size', 'pollscore']]
 y = data['scaled_trump_pct']
