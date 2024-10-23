@@ -40,5 +40,9 @@ The polling data was sourced from:
 3. **Modeling**: A linear model was fitted using predictors like `numeric_grade`, `sample_size`, and `pollscore` to predict the percentage of votes for Donald Trump. 
 4. **Prediction**: The election prediction was made by averaging predictor values and applying them to the fitted model.
 
+## Setup and Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/aabbmddcc/US_election_prediction
 
 Feel free to explore the repository and reach out if you have any questions or suggestions.
