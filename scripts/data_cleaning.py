@@ -17,6 +17,8 @@ polls = list(set(raw_data['poll_id']))
 response = []
 predictors = []
 
+print(len(polls))
+
 # Gain all possible use data
 for i in range(len(polls)):
 
@@ -42,11 +44,14 @@ for i in range(len(polls)):
 #Arranging gained response and predictors in a new list
 cleaned_response = []
 cleaned_predictors = []
+
 for i in range(len(response)):
     if isinstance(response[i], (int, float)) and not math.isnan(response[i]):
         if all(isinstance(x, (int, float)) and not math.isnan(x) for x in predictors[i]):
             cleaned_response.append(response[i])
             cleaned_predictors.append(predictors[i])
+
+print(len(cleaned_predictors))
 
 df = pd.DataFrame(cleaned_predictors, columns=['numeric_grade', 'sample_size', 'pollscore'])
 df['scaled_trump_pct'] = cleaned_response

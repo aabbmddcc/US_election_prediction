@@ -8,8 +8,10 @@ This repository contains the files and code used to build a linear model to pred
 
 The repository is organized as follows:
 
-- `data/raw_data`: Contains the raw data as obtained from sources such as FiveThirtyEight and The Bullfinch Group.
-- `data/analysis_data`: Contains the cleaned dataset used for analysis and modeling.
+- `data`:
+    - `raw_data`: Contains the raw data as obtained from sources such as FiveThirtyEight and The Bullfinch Group.
+    - `analysis_data`: Contains the cleaned dataset used for analysis and modeling.
+    - `simulation_data`: Contains the simulation data used of model simulation.
 - `models`: Contains the fitted models, including saved models in `.pkl` format.
 - `other/llm_usage`: Documents any assistance from ChatGPT-4o.
 - `paper`: Contains the files used to generate the final paper.
@@ -20,6 +22,7 @@ The repository is organized as follows:
     - `data_cleaning.py`: Clean the data to extract those for fitting model.
     - `model_fitting.py`: Output a fitted model in `.pkl` format.
     - `prediction.py`: Use polls-and-polls to predict percentage of vote of Donald Trump.
+    - `simulation_data_generation.py`: Generating a simulation data file. Note: it also run the simulation one time.
 
 
 ## Statement on LLM usage
